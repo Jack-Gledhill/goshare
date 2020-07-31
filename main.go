@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"fmt"
 	"log"
+	"math"
 	"net/http"
 	"path"
 	"os"
@@ -35,7 +36,7 @@ var (
 	Version VersionInfo = VersionInfo{
 		Major: 1,
 		Minor: 0,
-		Patch: 1,
+		Patch: 2,
 		Release: "stable",
 	}
 	Whitelist []string = []string{}
@@ -86,7 +87,7 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		
-		r.ParseMultipartForm(MaxUploadSize << 20)
+		r.ParseMultipartForm(MaxUploadSize)
 		file, handler, err := r.FormFile(FormName)
 
 		if err != nil {
@@ -95,8 +96,9 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 			return
 		}		
 
-		if handler.Size > (MaxUploadSize * 1024^2)  {
+		if float64(handler.Size) > (float64(MaxUploadSize) * math.Pow(1024, 2)) {
 			http.Error(w, http.StatusText(http.StatusRequestEntityTooLarge), http.StatusRequestEntityTooLarge)
+			log.Printf("%s: Attempted to upload file with size: %d", getIP(r), handler.Size)
 			return
 		}
 		defer file.Close()

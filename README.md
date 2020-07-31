@@ -17,3 +17,12 @@ docker run -d -v ~/goshare/uploads:/opt/site/uploads --name goshare --network="h
 ```
 
 You'll likely want to setup an Nginx Reverse Proxy in addition to CloudFlare to make this work best but I'm sure y'all can figure that out yourselves (plus there's like a million and 2 guides on it out there).
+
+## Getting 419s when my MaxUploadSize is huge
+
+If you're getting 419: Request Entity Too Large errors even though your file's size is within what is needed, then it's likely your Reverse Proxy. For Nginx users, the fix is simple, add the following to your config and reload.
+```
+client_max_body_size 100M;
+```
+
+**Note:** `100M` means 100 Megabytes, change it as you please.
