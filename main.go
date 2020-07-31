@@ -35,7 +35,7 @@ var (
 	Version VersionInfo = VersionInfo{
 		Major: 1,
 		Minor: 0,
-		Patch: 0,
+		Patch: 1,
 		Release: "stable",
 	}
 	Whitelist []string = []string{}
