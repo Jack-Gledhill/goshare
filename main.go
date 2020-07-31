@@ -36,7 +36,7 @@ var (
 		Major: 1,
 		Minor: 0,
 		Patch: 0,
-		Release: "alpha",
+		Release: "stable",
 	}
 	Whitelist []string = []string{}
 )
