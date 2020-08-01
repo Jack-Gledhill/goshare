@@ -11,7 +11,7 @@ Now, you're ready to start the server, firstly, build the image for the server w
 docker build . --tag goshare:latest
 ```
 
-Wait for the image to build (even on a low-resource system like a Raspberry Pi, this should take no less than 5 minutes). Once complete, you can run the container with the command below.
+Wait for the image to build (even on a low-resource system like a Raspberry Pi, this should take no more than 5 minutes). Once complete, you can run the container with the command below.
 ```
 docker run -d -v ~/goshare/uploads:/opt/site/uploads --name goshare --network="host" goshare:latest
 ```
